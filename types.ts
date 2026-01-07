@@ -1,4 +1,6 @@
 
+import React from 'react';
+
 export interface Program {
   id: string;
   title: string;
@@ -23,6 +25,7 @@ export interface PricingPlan {
   duration: string;
   features: string[];
   isPopular?: boolean;
+  isPersonal?: boolean;
 }
 
 export interface Testimonial {
