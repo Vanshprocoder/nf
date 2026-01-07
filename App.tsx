@@ -560,17 +560,27 @@ const App: React.FC = () => {
           </div>
           {/* Embedded map for location */}
           <div className="mt-8 mb-6">
-            <div className="w-full h-64 md:h-96 rounded-lg overflow-hidden border border-zinc-800">
-              <iframe
-                title="Nagpal Fitness location"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3423.465683657838!2d75.9306718!3d30.90160500000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391a9dfc8409b9ff%3A0xd62077d1f8e3e9c2!2sNagpal%20Fitness!5e0!3m2!1sen!2sin!4v1767794154604!5m2!1sen!2sin"
-                className="w-full h-full"
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              />
-            </div>
+              <div className="w-full h-64 md:h-96 rounded-lg overflow-hidden border border-zinc-800">
+                {/* Use an optional Vite env var VITE_GOOGLE_MAPS_KEY for embed key (set in Vercel env vars).
+                    If the var is not present we fall back to the plain embed URL.
+                */}
+                {(() => {
+                  const base = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3423.465683657838!2d75.9306718!3d30.90160500000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391a9dfc8409b9ff%3A0xd62077d1f8e3e9c2!2sNagpal%20Fitness!5e0!3m2!1sen!2sin!4v1767794154604!5m2!1sen!2sin';
+                  const key = (import.meta as any).env?.VITE_GOOGLE_MAPS_KEY;
+                  const src = key ? `${base}&key=${encodeURIComponent(key)}` : base;
+                  return (
+                    <iframe
+                      title="Nagpal Fitness location"
+                      src={src}
+                      className="w-full h-full"
+                      style={{ border: 0 }}
+                      allowFullScreen
+                      loading="lazy"
+                      referrerPolicy="no-referrer-when-downgrade"
+                    />
+                  );
+                })()}
+              </div>
           </div>
           <div className="pt-10 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-zinc-600 font-bold uppercase tracking-widest">
             <p>© 2026 Nagpal FITNESS. ALL RIGHTS RESERVED.</p>
