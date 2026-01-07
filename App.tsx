@@ -23,7 +23,7 @@ import {
 
 const App: React.FC = () => {
   // WhatsApp target (owner contact). Use international format without + or spaces.
-  const WHATSAPP_NUMBER = '919877601657';
+  const WHATSAPP_NUMBER = '919815655456';
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -338,6 +338,8 @@ const App: React.FC = () => {
                 className={`p-10 rounded-3xl relative flex flex-col ${
                   plan.isPopular 
                   ? 'bg-neon text-zinc-950 scale-105 shadow-[0_20px_50px_rgba(190,242,100,0.1)]' 
+                  : plan.isPersonal
+                  ? 'bg-zinc-900 border border-lime-500'
                   : 'bg-zinc-900 border border-zinc-800'
                 }`}
               >
@@ -357,13 +359,22 @@ const App: React.FC = () => {
                     </li>
                   ))}
                 </ul>
-                <button className={`w-full py-4 rounded-xl font-black uppercase tracking-wider transition-all ${
-                  plan.isPopular 
-                  ? 'bg-zinc-950 text-white hover:bg-zinc-800' 
-                  : 'bg-neon text-zinc-950 hover:bg-lime-300'
-                }`}>
+                {/* Select opens WhatsApp with a prefilled message including the plan name */}
+                {/** Use the WHATSAPP_NUMBER from component scope */}
+                <a
+                  href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(`Hi there, I'm interested in the ${plan.name} plan`)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`w-full py-4 rounded-xl font-black uppercase tracking-wider transition-all inline-block text-center ${
+                    plan.isPopular 
+                    ? 'bg-zinc-950 text-white hover:bg-zinc-800' 
+                    : plan.isPersonal
+                    ? 'bg-lime-500 text-zinc-950 hover:bg-lime-600'
+                    : 'bg-neon text-zinc-950 hover:bg-lime-300'
+                  }`}
+                >
                   Select Plan
-                </button>
+                </a>
               </div>
             ))}
           </div>
@@ -411,7 +422,7 @@ const App: React.FC = () => {
         <div className="container mx-auto px-6">
           <div className="glass-card rounded-[3rem] overflow-hidden">
             <div className="flex flex-col lg:flex-row">
-              <div className="lg:w-1/2 p-12 lg:p-20 bg-neon text-zinc-950">
+              <div className="hidden lg:block lg:w-1/2 p-12 lg:p-20 bg-neon text-zinc-950">
                 <h2 className="text-6xl font-black mb-8 leading-tight">START YOUR <br />EVOLUTION.</h2>
                 <div className="space-y-8">
                   <div className="flex items-center gap-6">
@@ -420,7 +431,7 @@ const App: React.FC = () => {
                     </div>
                     <div>
                       <p className="text-zinc-800 font-bold uppercase text-xs tracking-widest">Call or WhatsApp</p>
-                      <p className="text-xl font-black">+91 9877601657</p>
+                      <p className="text-xl font-black">+91 9815655456</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-6">
@@ -443,7 +454,9 @@ const App: React.FC = () => {
                   </div>
                 </div>
               </div>
-              <div className="lg:w-1/2 p-12 lg:p-20 bg-zinc-900/50">
+              <div className="w-full lg:w-1/2 p-12 lg:p-20 bg-zinc-900/50">
+                {/* Mobile-only heading since the left contact panel is hidden on small screens */}
+                <h3 className="text-3xl font-black mb-6 lg:hidden">Reach Us</h3>
                 <form className="space-y-6" onSubmit={handleSubmit}>
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
@@ -508,8 +521,19 @@ const App: React.FC = () => {
                 The premier destination for high-performance training and athletic development. We don't just build bodies; we build legacies of discipline.
               </p>
               <div className="flex gap-4">
-                {[Instagram, Mail, Phone].map((Icon, i) => (
-                  <a key={i} href="#" className="w-10 h-10 rounded-full border border-zinc-800 flex items-center justify-center hover:bg-neon hover:text-zinc-950 hover:border-neon transition-all">
+                {[
+                  { Icon: Instagram, href: 'https://www.instagram.com/hitesh_transmasters/', label: 'Instagram' },
+                  { Icon: Mail, href: 'mailto:hiteshnagpal5717@gmail.com', label: 'Email' },
+                  { Icon: Phone, href: 'https://wa.me/919815655456', label: 'WhatsApp' }
+                ].map(({ Icon, href, label }, i) => (
+                  <a
+                    key={i}
+                    href={href}
+                    aria-label={label}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 rounded-full border border-zinc-800 flex items-center justify-center hover:bg-lime-500 hover:text-zinc-950 hover:border-lime-500 transition-all"
+                  >
                     <Icon size={18} />
                   </a>
                 ))}
@@ -527,11 +551,25 @@ const App: React.FC = () => {
             <div>
               <h4 className="font-bold uppercase tracking-widest text-sm mb-6">Gym Hours</h4>
               <ul className="space-y-4 text-zinc-400">
-                <li className="flex justify-between"><span>Mon - Sat (Morning)</span> <span className="text-white">05:00 - 9:00</span></li>
-                <li className="flex justify-between"><span>Mon - Sat (Evening)</span> <span className="text-white">18:00 - 23:00</span></li>
+                <li className="flex justify-between"><span>Mon - Sat (Morning)</span> <span className="text-white">06:00 - 9:00</span></li>
+                <li className="flex justify-between"><span>Mon - Sat (Evening)</span> <span className="text-white">18:00 - 22:00</span></li>
 
                 <li className="text-neon text-xs font-bold mt-2">24/7 Access via Whatsapp</li>
               </ul>
+            </div>
+          </div>
+          {/* Embedded map for location */}
+          <div className="mt-8 mb-6">
+            <div className="w-full h-64 md:h-96 rounded-lg overflow-hidden border border-zinc-800">
+              <iframe
+                title="Nagpal Fitness location"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3423.465683657838!2d75.9306718!3d30.90160500000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391a9dfc8409b9ff%3A0xd62077d1f8e3e9c2!2sNagpal%20Fitness!5e0!3m2!1sen!2sin!4v1767794154604!5m2!1sen!2sin"
+                className="w-full h-full"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
             </div>
           </div>
           <div className="pt-10 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-zinc-600 font-bold uppercase tracking-widest">
