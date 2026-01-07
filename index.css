@@ -1,0 +1,11 @@
+/* Minimal stylesheet to avoid 404 on deployment.
+   For production Tailwind, install Tailwind and build a proper CSS file.
+*/
+@layer base {
+  html, body, #root {
+    height: 100%;
+  }
+}
+
+/* Keep a small fallback so the layout doesn't break if Tailwind isn't present */
+body { margin: 0; }
