@@ -64,25 +64,42 @@ export const TRAINERS: Trainer[] = [
 export const PRICING_PLANS: PricingPlan[] = [
   {
     id: '1',
-    name: 'Monthly Core',
+    name: '1 Month',
     price: 'INR 699',
-    duration: '/month',
-    features: ['Unlimited Gym Access', 'Locker Room Access', 'Standard Gym App', '2 Guest Passes/Month']
+    duration: '/Month',
+    features: ['Unlimited Gym Access', 'Locker Room Access', 'Standard Gym App']
   },
   {
     id: '2',
-    name: 'Elite Annual',
+    name: '1 Year + 6 Month Free',
     price: 'INR 4999',
-    duration: '/month',
+    duration: '@ 416/month',
     isPopular: true,
-    features: ['Everything in Core', 'Free Nutrition Consult', '1 PT Session/Month', 'Advanced Performance Tracking', '24/7 Priority Support']
+    features: ['Everything in shorter plans', '6 Months free' ,'Free Nutrition Consult', '4 PT Sessions/Month', 'Priority Support']
   },
   {
     id: '3',
-    name: 'Personal Pro',
-    price: 'INR 999',
-    duration: '/session',
-    features: ['1-on-1 Dedicated Training', 'Custom Meal Plans', 'Daily Accountability', 'Body Composition Analysis', 'Home Workout App']
+    name: '3 Month',
+    price: 'INR 1699',
+    duration: '@ 566/month',
+    features: ['Unlimited Gym Access', 'Locker Room Access', 'Standard Gym App']
+  },
+
+  {
+    id: '4',
+    name: '6 Month',
+    price: 'INR 2799',
+    duration: '@ 466/month',
+    
+    features: ['Unlimited Gym Access', 'Locker Room Access', 'Standard Gym App']
+  },
+  {
+    id: '5',
+    name: 'Personal Training',
+    price: 'INR 1999',
+    duration: '/month',
+    isPersonal: true,
+    features: ['1-on-1 Dedicated Training', 'Custom Meal Plans', 'Daily Accountability', 'Body Composition Analysis']
   }
 ];
 
